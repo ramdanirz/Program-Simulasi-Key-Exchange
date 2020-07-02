@@ -1,0 +1,87 @@
+Scanner input = new Scanner(System.in);
+//membuat variable input yang bertipe scanner 
+        System.out.println("selamat datang di program simulasi key Diffie Hellman");
+        System.out.println("Tekan 1 Untuk memulai program");
+        System.out.println("Tekan 2 Untuk keluar");
+        menu = input.nextInt();
+        while (menu < 1 || menu > 2) {
+            System.out.println("Terjadi kesalahan, mohon ulangi lagi: ");
+            menu = input.nextInt();
+        }
+        while (menu != 2) {
+//dari baris ke-4 dan baris ke-6 sampai baris ke-13 untuk membuat method main 
+            System.out.print("Masukkan bilangan base: ");
+            long base = input.nextInt();
+//input bilangan base 
+            System.out.print("Masukkan bilangan prima: ");
+            long prima = input.nextInt();
+//input bilangan prima 
+            int prime = 0;
+            while (prime == 0) {
+                int b = 2;
+                prime = 1;
+                while (b < prima) {
+                    if ((prima % b) == 0) {
+                        prime = 0;
+                        break;
+                    }
+                    b++;
+                }
+                if (prime == 0) {
+                    System.out.print(prima + " bukan bilangan prima, masukan lagi: ");
+                    prima = input.nextInt();
+                }
+            }
+//dari baris ke-16 sampai ke-27 untuk mengecek bilangan yang dimasukan adalah bilangan prima atau bukan 
+            System.out.print("masukan private key 1: ");
+            long key1 = input.nextInt();
+//input private key pihak pertama 
+            System.out.print("masukan private key 2: ");
+            long key2 = input.nextInt();
+//input private key pihak kedua 
+            long A = (long) Math.pow(base, key1) % prima;
+//menghitung key yg akan dikirim ke pihak kedua 
+            long B = (long) Math.pow(base, key2) % prima;
+//menghitung key yg akan dikirim ke pihak pertama 
+            long Ka = (long) Math.pow(B, key1) % prima;
+//menghitung public key pihak pertama 
+            long Kb = (long) Math.pow(A, key2) % prima;
+//menghitung public key pihak kedua 
+            System.out.println("Public key pihak pertama: " + Ka);
+//menampilkan public key pihak pertama 
+            System.out.println("Public Key pihak kedua: " + Kb);
+//menampilkan public key pihak kedua 
+            System.out.print("Key match: ");
+            if (Ka == Kb) {
+                System.out.println("TRUE");
+            } else {
+
+                System.out.println("FALSE");
+            }
+//dari baris ke-36 sampai ke-40 untuk membandingkan kecocokan dari kedua public key 
+            menu();
+        }
+        //untuk memanggil method menu 
+        System.out.println("Terima kasih anda akan keluar dalam beberapa detik");
+//print terima kasih 
+        jeda(3);
+    }
+    //untuk memanggil method jeda dengan masukan 3 
+
+    private static void menu() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("");
+        System.out.println("1. Untuk menjalankan kembali");
+        System.out.println("2. Keluar");
+        menu = input.nextInt();
+    }
+//dari baris ke-44 sampai ke-49 untuk membuat method pilihan menu 
+
+    public static void jeda(int jeda) {
+        try {
+            Thread.sleep(jeda * 1000);
+        } catch (Exception e) {
+        }
+    }
+
+}
